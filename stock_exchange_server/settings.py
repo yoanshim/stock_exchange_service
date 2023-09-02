@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'stock_exchange_server.middleware.RateLimitMiddleware',
 ]
 
 ROOT_URLCONF = 'stock_exchange_server.urls'
