@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -101,6 +102,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": REDIS_URL,  # Adjust the URL according to your Redis server config
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -125,3 +138,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALPHA_API_KEY = "Y2R9RKOESRRHSO10"
+ALPHA_URL = "https://www.alphavantage.co"
+ALPHA_QUOTE_URL= f"{ALPHA_URL}/query?function=GLOBAL_QUOTE&apikey={ALPHA_API_KEY}"
+COST_ALPHA_API_CALL = 0.1
